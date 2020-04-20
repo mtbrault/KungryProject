@@ -3,6 +3,7 @@ package ca.ulaval.ima.mp.ui.dashboard;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,9 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import ca.ulaval.ima.mp.R;
 import ca.ulaval.ima.mp.dummy.DummyContent;
 import ca.ulaval.ima.mp.dummy.DummyContent.DummyItem;
+import ca.ulaval.ima.mp.services.API;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -24,10 +35,7 @@ import ca.ulaval.ima.mp.dummy.DummyContent.DummyItem;
  */
 public class ResaurantListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    public RecyclerView recyclerView;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -37,23 +45,41 @@ public class ResaurantListFragment extends Fragment {
     public ResaurantListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ResaurantListFragment newInstance(int columnCount) {
+    public static ResaurantListFragment newInstance() {
         ResaurantListFragment fragment = new ResaurantListFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        API.getInstance().getRestaurants(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONArray restaurants = new JSONObject(response.body().string()).getJSONObject("content").getJSONArray("results");
+                        for (int i = 0; i < restaurants.length(); i++) {
+                            DummyContent.addItem(restaurants.getJSONObject(i));
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.getAdapter().notifyDataSetChanged();
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -64,12 +90,8 @@ public class ResaurantListFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MyResaurantListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;

@@ -1,5 +1,8 @@
 package ca.ulaval.ima.mp.dummy;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,50 +26,42 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = 25;
-
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
-    }
-
-    private static void addItem(DummyItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+    public static void addItem(JSONObject item) throws JSONException {
+        DummyItem restaurant = new DummyItem(item);
+        ITEMS.add(restaurant);
+        ITEM_MAP.put(restaurant.id, restaurant);
     }
 
     /**
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
-        public final String id;
-        public final String content;
-        public final String details;
+        static public String ID = "id";
+        static public String NAME = "name";
+        static public String REVIEW_COUNT = "review_count";
+        static public String DISTANCE = "distance";
+        static public String IMAGE = "image";
+        static public String REVIEW_AVERAGE = "review_average";
 
-        public DummyItem(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+        public final String id;
+        public final String name;
+        public final String distance;
+        public final String reviewCount;
+        public final String image;
+        public final float reviewAverage;
+
+        public DummyItem(JSONObject restaurant) throws JSONException {
+            this.id = restaurant.getString(ID);
+            this.name = restaurant.getString(NAME);
+            this.distance = restaurant.getString(DISTANCE);
+            this.image = restaurant.getString(IMAGE);
+            this.reviewCount = restaurant.getString(REVIEW_COUNT);
+            this.reviewAverage = (float)restaurant.getDouble(REVIEW_AVERAGE);
         }
 
         @Override
         public String toString() {
-            return content;
+            return name;
         }
     }
 }
