@@ -44,7 +44,7 @@ public class MyResaurantListRecyclerViewAdapter extends RecyclerView.Adapter<MyR
         holder.mItem = mValues.get(position);
         holder.name.setText(mValues.get(position).name);
         holder.distance.setText(mValues.get(position).distance);
-        holder.reviewCount.setText(mValues.get(position).reviewCount);
+        holder.reviewCount.setText( "(" + mValues.get(position).reviewCount + ")");
         holder.reviewAverage.setRating(mValues.get(position).reviewAverage);
         Picasso.get().load(mValues.get(position).image).into(holder.image);
         holder.mView.setOnClickListener(new View.OnClickListener() {
