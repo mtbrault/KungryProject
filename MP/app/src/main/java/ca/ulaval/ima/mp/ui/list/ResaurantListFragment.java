@@ -1,11 +1,10 @@
-package ca.ulaval.ima.mp.ui.dashboard;
+package ca.ulaval.ima.mp.ui.list;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

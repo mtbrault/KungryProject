@@ -1,4 +1,4 @@
-package ca.ulaval.ima.mp.ui.notifications;
+package ca.ulaval.ima.mp.ui.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

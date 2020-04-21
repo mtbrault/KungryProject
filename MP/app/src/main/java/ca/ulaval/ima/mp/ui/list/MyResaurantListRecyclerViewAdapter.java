@@ -1,4 +1,4 @@
-package ca.ulaval.ima.mp.ui.dashboard;
+package ca.ulaval.ima.mp.ui.list;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import ca.ulaval.ima.mp.R;
-import ca.ulaval.ima.mp.ui.dashboard.ResaurantListFragment.OnListFragmentInteractionListener;
+import ca.ulaval.ima.mp.ui.list.ResaurantListFragment.OnListFragmentInteractionListener;
 import ca.ulaval.ima.mp.dummy.DummyContent.DummyItem;
 
 import java.util.List;
