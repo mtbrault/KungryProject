@@ -1,4 +1,4 @@
-package ca.ulaval.ima.mp.ui.notifications;
+package ca.ulaval.ima.mp.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="ca.ulaval.ima.mp.ui.home.HomeFragment"
+        android:name="ca.ulaval.ima.mp.ui.map.MapsFragment"
         android:label="@string/title_map"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_list"
-        android:name="ca.ulaval.ima.mp.ui.dashboard.ResaurantListFragment"
+        android:name="ca.ulaval.ima.mp.ui.list.ResaurantListFragment"
         android:label="@string/title_list"
         tools:layout="@layout/fragment_resaurant_list_list" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="ca.ulaval.ima.mp.ui.notifications.NotificationsFragment"
+        android:name="ca.ulaval.ima.mp.ui.profile.NotificationsFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

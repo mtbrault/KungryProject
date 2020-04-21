@@ -4,4 +4,6 @@
     <string name="title_list">List</string>
     <string name="title_profile">Profile</string>
     <string name="lundi">Lundi</string>
+    <string name="API_KEY">AIzaSyCVzgR8ALL2SAb2UcVDuWKutqvALW4tju0</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
