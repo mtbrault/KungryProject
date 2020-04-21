@@ -37,9 +37,17 @@ public class API extends OkHttpClient {
         final Request request = new Request.Builder()
                 .url(URL + "/restaurant")
                 .build();
+        newCall(request).enqueue(callback);
+    }
+
+    public void getRestaurants(int page, Callback callback) {
+        final Request request = new Request.Builder()
+                .url(URL + "/restaurant?page=" + page)
+                .build();
 
         newCall(request).enqueue(callback);
     }
+
 
     public void getRestaurant(String id, Callback callback) {
         final Request request = new Request.Builder()

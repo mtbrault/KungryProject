@@ -3,6 +3,7 @@ package ca.ulaval.ima.mp.ui.dashboard;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Scroller;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +40,8 @@ public class ResaurantListFragment extends Fragment {
 
     public RecyclerView recyclerView;
     private OnListFragmentInteractionListener mListener;
+    private int page = 1;
+    private boolean loading = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -52,7 +57,9 @@ public class ResaurantListFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
+        page = 1;
+        DummyContent.clearItems();
+        loading = true;
         API.getInstance().getRestaurants(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -67,6 +74,8 @@ public class ResaurantListFragment extends Fragment {
                         for (int i = 0; i < restaurants.length(); i++) {
                             DummyContent.addItem(restaurants.getJSONObject(i));
                         }
+                        page++;
+                        loading = false;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -93,6 +102,52 @@ public class ResaurantListFragment extends Fragment {
             recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MyResaurantListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull final RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (!recyclerView.canScrollVertically(1)) {
+                        if (page == -1 || loading == true) {
+                            return;
+                        }
+                        loading = true;
+                        API.getInstance().getRestaurants(page, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        JSONObject data = new JSONObject(response.body().string()).getJSONObject("content");
+                                        JSONArray restaurants = data.getJSONArray("results");
+                                        for (int i = 0; i < restaurants.length(); i++) {
+                                            DummyContent.addItem(restaurants.getJSONObject(i));
+                                        }
+                                        loading = false;
+                                        if (data.getString("next") != "null") {
+                                            page++;
+                                        } else {
+                                            page = -1;
+                                        }
+                                        System.out.println("down page: "+ page);
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                recyclerView.getAdapter().notifyDataSetChanged();
+                                            }
+                                        });
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
         return view;
     }

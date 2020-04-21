@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
         Intent intent = new Intent(this, RestaurantActivity.class);
+        intent.putExtra("id", item.id);
         startActivity(intent);
     }
 }

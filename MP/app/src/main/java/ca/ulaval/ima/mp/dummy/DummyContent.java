@@ -32,6 +32,10 @@ public class DummyContent {
         ITEM_MAP.put(restaurant.id, restaurant);
     }
 
+    public static void clearItems() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
     /**
      * A dummy item representing a piece of content.
      */
@@ -42,6 +46,7 @@ public class DummyContent {
         static public String DISTANCE = "distance";
         static public String IMAGE = "image";
         static public String REVIEW_AVERAGE = "review_average";
+        static public String OPENING_HOURS = "opening_hours";
 
         public final String id;
         public final String name;
