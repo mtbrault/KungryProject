@@ -7,4 +7,9 @@
     <string name="API_KEY">AIzaSyCVzgR8ALL2SAb2UcVDuWKutqvALW4tju0</string>
     <string name="title_activity_maps">Map</string>
     <string name="logo">Logo</string>
+    <string name="deconnexion">DÉCONNEXION</string>
+    <string name="nombre_d_valuations_attribu_es">Nombre d’évaluations attribuées</string>
+    <string name="courriel">Courriel</string>
+    <string name="nom">Nom</string>
+    <string name="mon_compte">Mon compte</string>
 </resources>
