@@ -57,20 +57,18 @@ public class Restaurant {
         JSONArray jsonOpeningHours = data.getJSONArray(OPENING_HOURS);
         for (int i = 0; i < jsonOpeningHours.length(); i++) {
             JSONObject openingHour = jsonOpeningHours.getJSONObject(i);
-            this.openingHours.put(openingHour.getString(ID), new OpeningHour(openingHour));
+            this.openingHours.put(openingHour.getString(DAY), new OpeningHour(openingHour));
         }
     }
 
-    public enum WEEK_DAY {
-        UNKNOW,
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY,
-        SUNDAY
-    }
+    static public String MONDAY = "MON";
+    static public String TUESDAY = "TUE";
+    static public String WEDNESDAY= "WED";
+    static public String THURSDAY= "THU";
+    static public String FRIDAY= "FRI";
+    static public String SATURDAY= "SAT";
+    static public String SUNDAY = "SUN";
+
     class OpeningHour {
         public String id;
         public String opening_hour;
@@ -80,12 +78,16 @@ public class Restaurant {
         OpeningHour(JSONObject jsonData) throws JSONException {
             this.id = jsonData.getString(ID);
             this.opening_hour = jsonData.getString(OPENING_HOUR);
+            if (this.opening_hour != "null")
+                this.opening_hour = this.opening_hour.substring(0, 5);
             this.closing_hour = jsonData.getString(CLOSING_HOUR);
+            if (this.closing_hour != "null")
+                this.closing_hour = this.closing_hour.substring(0, 5);
             this.day = jsonData.getString(DAY);
         }
     }
 
-    class Review {
+    public static class Review {
         public String id;
         public Creator creator;
         public String stars;

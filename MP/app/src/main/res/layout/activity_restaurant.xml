@@ -13,18 +13,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewRestaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="240dp"
+                android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/restaurantName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
@@ -34,6 +38,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:text="TextView"
                 android:textColor="@android:color/black" />
 
@@ -43,24 +48,25 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/distance2"
+                    android:id="@+id/distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0"
                     android:drawableLeft="@drawable/icone_pin"
                     android:text="5.5 km" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar3"
+                    android:id="@+id/ratingBar2"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0"
                     android:numStars="5" />
 
                 <TextView
-                    android:id="@+id/reviewCount2"
+                    android:id="@+id/reviewCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
@@ -70,27 +76,37 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:background="#F2F2F2"
                 android:drawableLeft="@drawable/np_phone_1887328_000000"
                 android:gravity="center|start"
+                android:paddingLeft="10dp"
                 android:text="Button" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
                 android:background="#F2F2F2"
-                android:drawableLeft="@drawable/np_phone_1887328_000000"
+                android:drawableLeft="@drawable/np_link_3126160_000000"
                 android:gravity="center|start"
+                android:paddingLeft="10dp"
                 android:text="Button" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:text="Heures d'ouvertures"
                 android:textColor="@android:color/black"
                 android:textSize="19sp" />
@@ -98,22 +114,28 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/lundiLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/lundi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/lundi"
@@ -125,7 +147,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TextView"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -136,7 +157,7 @@
 
                         <TextView
                             android:id="@+id/mardi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Mardi"
@@ -148,7 +169,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TextView"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -159,7 +179,7 @@
 
                         <TextView
                             android:id="@+id/mercredi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Mercredi"
@@ -171,7 +191,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TextView"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -182,7 +201,7 @@
 
                         <TextView
                             android:id="@+id/jeudi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Jeudi"
@@ -194,7 +213,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TextView"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -205,7 +223,7 @@
 
                         <TextView
                             android:id="@+id/vendredi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Vendredi"
@@ -217,7 +235,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TextView"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -228,7 +245,7 @@
 
                         <TextView
                             android:id="@+id/samedi"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Samedi"
@@ -240,7 +257,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TextView"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -251,7 +267,7 @@
 
                         <TextView
                             android:id="@+id/dimanche"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Dimanche"
@@ -263,7 +279,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Dimanche"
                             android:textColor="@android:color/black" />
                     </LinearLayout>
 
@@ -275,6 +290,8 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:text="Lieu"
                 android:textColor="@android:color/black"
                 android:textSize="19sp" />
@@ -288,6 +305,8 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:text="Evaluations"
                     android:textColor="@android:color/black"
                     android:textSize="19sp" />
@@ -296,9 +315,30 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="(34)" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/seeMoreReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:drawableStart="@drawable/np_eye_2037762_000000"
+                android:drawableLeft="@drawable/np_eye_2037762_000000"
+                android:gravity="center"
+                android:text="Voir plus d'évaluation"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
