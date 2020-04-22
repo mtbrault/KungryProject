@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -48,6 +49,18 @@ public class API extends OkHttpClient {
         newCall(request).enqueue(callback);
     }
 
+    public void getRestaurantFromPosition(double latitude, double longitude, int distance, Callback callback) {
+        HttpUrl.Builder builder = HttpUrl.parse(URL + "/restaurant/search").newBuilder();
+
+        builder.addQueryParameter("latitude", String.valueOf(latitude));
+        builder.addQueryParameter("longitude", String.valueOf(longitude));
+        builder.addQueryParameter("radius", String.valueOf(distance));
+
+        final Request request = new Request.Builder()
+                .url(builder.build().toString())
+                .build();
+        newCall(request).enqueue(callback);
+    }
 
     public void getRestaurant(String id, Callback callback) {
         final Request request = new Request.Builder()

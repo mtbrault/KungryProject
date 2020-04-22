@@ -40,7 +40,7 @@ public class Restaurant {
     public String phoneNumber;
     public String website;
 
-    Restaurant(JSONObject data) throws JSONException {
+    public Restaurant(JSONObject data) throws JSONException {
         this.id = data.getString(ID);
         this.name = data.getString(NAME);
         this.distance = data.getString(DISTANCE);
