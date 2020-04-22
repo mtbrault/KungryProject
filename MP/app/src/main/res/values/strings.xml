@@ -12,4 +12,5 @@
     <string name="courriel">Courriel</string>
     <string name="nom">Nom</string>
     <string name="mon_compte">Mon compte</string>
+    <string name="mot_de_passe">Mot de passe</string>
 </resources>
