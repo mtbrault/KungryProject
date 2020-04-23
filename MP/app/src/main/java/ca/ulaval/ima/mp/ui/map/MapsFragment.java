@@ -90,6 +90,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             API.getInstance().setLatitude(this.myLatitude);
             API.getInstance().setLongitude(this.myLongitude);
         }
+        mMap.addMarker(new MarkerOptions().position(new LatLng(this.myLatitude, this.myLongitude)).title("Ma position"));
     }
 
     private void addRestaurantToMap(final Response response) throws JSONException {
