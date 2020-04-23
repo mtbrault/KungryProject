@@ -26,7 +26,6 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".RestaurantActivity" />
-        <activity android:name=".ui.account.LoginFragment" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

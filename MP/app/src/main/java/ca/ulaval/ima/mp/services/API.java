@@ -1,5 +1,7 @@
 package ca.ulaval.ima.mp.services;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,15 +112,16 @@ public class API extends OkHttpClient {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     connected = true;
+                    final JSONObject responseBody;
                     try {
-                        JSONObject responseBody = new JSONObject(response.body().string());
+                        responseBody = new JSONObject(response.body().string());
                         access_token = "Basic " + responseBody.getJSONObject("content").getString("access_token");
                         refresh_token = responseBody.getJSONObject("content").getString("refresh_token");
                     } catch (JSONException err) {
-
                     }
                 }
-                callback.onResponse(call, response);
+                Log.d("ERROR-API", String.valueOf(response));
+                callback.onResponse(call, response, responseBody);
             }
         });
     }
@@ -128,6 +131,7 @@ public class API extends OkHttpClient {
         body.put("client_secret", CLIENT_SECRET);
         MediaType JSON = MediaType.parse("application/json");
         RequestBody requestBody = RequestBody.create(JSON, body.toString());
+
         final Request request = new Request.Builder()
                 .url(URL + "/account/login")
                 .post(requestBody)
@@ -148,7 +152,7 @@ public class API extends OkHttpClient {
                         access_token = "Basic " + responseBody.getJSONObject("content").getString("access_token");
                         refresh_token = responseBody.getJSONObject("content").getString("refresh_token");
                     } catch (JSONException err) {
-
+                        Log.d("ERROR-API", String.valueOf(err));
                     }
                 }
                 callback.onResponse(call, response);
