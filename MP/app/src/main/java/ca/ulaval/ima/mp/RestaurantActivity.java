@@ -32,6 +32,7 @@ public class RestaurantActivity extends AppCompatActivity {
         String id = getIntent().getStringExtra("id");
         setContentView(R.layout.activity_restaurant);
         getSupportActionBar().hide();
+
         API.getInstance().getRestaurant(id, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -100,6 +101,14 @@ public class RestaurantActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
+                                final Button buttonBack = findViewById(R.id.backButton);
+                                buttonBack.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        onBackPressed();
+                                    }
+                                });
+                                buttonBack.bringToFront();
                             }
                         });
                     } catch (JSONException e) {
