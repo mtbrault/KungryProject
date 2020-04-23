@@ -346,7 +346,7 @@
                 android:id="@+id/seeMoreReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="100dp"
                 android:drawableStart="@drawable/np_eye_2037762_000000"
                 android:drawableLeft="@drawable/np_eye_2037762_000000"
                 android:gravity="center"
@@ -358,4 +358,67 @@
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/footerActivityRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/connexionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Pour laisser une évaluation, connectez-vous."
+            android:textColor="@color/black"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/buttonConnexion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_green"
+            android:text="Connexion"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/buttonEvaluation"
+            style="@android:style/Widget.DeviceDefault.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_black"
+            android:text="Laisser une évaluation"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

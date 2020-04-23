@@ -19,6 +19,8 @@ public class API extends OkHttpClient {
     private static boolean connected = false;
     private String access_token;
     private String refresh_token;
+    private double longitude = -71.2908;
+    private double latitude = 46.8454;
     private String CLIENT_ID = "STO4WED2NTDDxjLs8ODios5M15HwsrRlydsMa1t0";
     private String CLIENT_SECRET = "YOVWGpjSnHd5AYDxGBR2CIB09ZYM1OPJGnH3ijkKwrUMVvwLprUmLf6fxku06ClUKTAEl5AeZN36V9QYBYvTtrLMrtUtXVuXOGWleQGYyApC2a469l36TdlXFqAG1tpK";
     public static boolean isConnected() {
@@ -34,16 +36,24 @@ public class API extends OkHttpClient {
         super();
     }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
     public void getRestaurants(Callback callback) {
         final Request request = new Request.Builder()
-                .url(URL + "/restaurant")
+                .url(URL + "/restaurant?latitude=" + this.latitude + "&longitude=" + this.longitude)
                 .build();
         newCall(request).enqueue(callback);
     }
 
     public void getRestaurants(int page, Callback callback) {
         final Request request = new Request.Builder()
-                .url(URL + "/restaurant?page=" + page)
+                .url(URL + "/restaurant?page=" + page + "&latitude=" + this.latitude + "&longitude=" + this.longitude)
                 .build();
 
         newCall(request).enqueue(callback);
@@ -64,7 +74,7 @@ public class API extends OkHttpClient {
 
     public void getRestaurant(String id, Callback callback) {
         final Request request = new Request.Builder()
-                .url(URL + "/restaurant/" + id)
+                .url(URL + "/restaurant/" + id + "?latitude=" + this.latitude + "&longitude=" + this.longitude)
                 .build();
 
         newCall(request).enqueue(callback);

@@ -43,7 +43,7 @@ public class MyResaurantListRecyclerViewAdapter extends RecyclerView.Adapter<MyR
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.name.setText(mValues.get(position).name);
-        holder.distance.setText(mValues.get(position).distance);
+        holder.distance.setText(mValues.get(position).distance + "km");
         holder.reviewCount.setText( "(" + mValues.get(position).reviewCount + ")");
         holder.reviewAverage.setRating(mValues.get(position).reviewAverage);
         holder.cuisine.setText(mValues.get(position).cuisine);
