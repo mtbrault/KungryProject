@@ -61,6 +61,7 @@ public class RestaurantActivity extends AppCompatActivity {
                         final TextView dimancheTextView = findViewById(R.id.dimancheHorraire);
                         final ImageView imageRestaurant = findViewById(R.id.imageViewRestaurant);
                         final RatingBar ratingBar = findViewById(R.id.ratingBar2);
+                        final TextView cuisineTextView = findViewById(R.id.cuisine);
                         final Restaurant.OpeningHour monday = restaurant.openingHours.get(Restaurant.MONDAY);
                         final Restaurant.OpeningHour tuesday = restaurant.openingHours.get(Restaurant.TUESDAY);
                         final Restaurant.OpeningHour wednesday = restaurant.openingHours.get(Restaurant.WEDNESDAY);
@@ -86,6 +87,7 @@ public class RestaurantActivity extends AppCompatActivity {
                                 phoneNumber.setText(restaurant.phoneNumber);
                                 websiteButton.setText(restaurant.website);
                                 ratingBar.setRating(restaurant.reviewAverage);
+                                cuisineTextView.setText(restaurant.cuisine);
                                 Picasso.get().load(restaurant.image).into(imageRestaurant);
                                 if (monday != null) {
                                     lundiTextView.setText(monday.opening_hour != "null" ? monday.opening_hour + " à " + monday.closing_hour : "Fermé");
