@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -59,6 +60,7 @@ public class RestaurantActivity extends AppCompatActivity {
                         final TextView samediTextView = findViewById(R.id.samediHorraire);
                         final TextView dimancheTextView = findViewById(R.id.dimancheHorraire);
                         final ImageView imageRestaurant = findViewById(R.id.imageViewRestaurant);
+                        final RatingBar ratingBar = findViewById(R.id.ratingBar2);
                         final Restaurant.OpeningHour monday = restaurant.openingHours.get(Restaurant.MONDAY);
                         final Restaurant.OpeningHour tuesday = restaurant.openingHours.get(Restaurant.TUESDAY);
                         final Restaurant.OpeningHour wednesday = restaurant.openingHours.get(Restaurant.WEDNESDAY);
@@ -83,6 +85,7 @@ public class RestaurantActivity extends AppCompatActivity {
                                 reviewCount.setText("(" + restaurant.reviewCount + ")");
                                 phoneNumber.setText(restaurant.phoneNumber);
                                 websiteButton.setText(restaurant.website);
+                                ratingBar.setRating(restaurant.reviewAverage);
                                 Picasso.get().load(restaurant.image).into(imageRestaurant);
                                 if (monday != null) {
                                     lundiTextView.setText(monday.opening_hour != "null" ? monday.opening_hour + " à " + monday.closing_hour : "Fermé");
