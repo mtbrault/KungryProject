@@ -3,6 +3,10 @@ package ca.ulaval.ima.mp.ui.map;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -13,12 +17,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -96,7 +103,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             JSONObject element = new JSONObject(restaurantList.getString(i));
                             JSONObject locate = new JSONObject(element.getString("location"));
                             LatLng position = new LatLng(Double.parseDouble(locate.getString("latitude")), Double.parseDouble(locate.getString("longitude")));
-                            mMap.addMarker(new MarkerOptions().position(position).title("Ceci est un test"));
+                            mMap.addMarker(new MarkerOptions().position(position).icon(getBitmapFromDrawable(getActivity(), R.drawable.icone_pin)));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -148,5 +155,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         else
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private BitmapDescriptor getBitmapFromDrawable(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
