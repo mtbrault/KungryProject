@@ -43,9 +43,10 @@ public class MyResaurantListRecyclerViewAdapter extends RecyclerView.Adapter<MyR
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.name.setText(mValues.get(position).name);
-        holder.distance.setText(mValues.get(position).distance);
+        holder.distance.setText(mValues.get(position).distance + "km");
         holder.reviewCount.setText( "(" + mValues.get(position).reviewCount + ")");
         holder.reviewAverage.setRating(mValues.get(position).reviewAverage);
+        holder.cuisine.setText(mValues.get(position).cuisine);
         Picasso.get().load(mValues.get(position).image).into(holder.image);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +72,7 @@ public class MyResaurantListRecyclerViewAdapter extends RecyclerView.Adapter<MyR
         public final TextView reviewCount;
         public final ImageView image;
         public final RatingBar reviewAverage;
+        public final TextView cuisine;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
@@ -81,6 +83,7 @@ public class MyResaurantListRecyclerViewAdapter extends RecyclerView.Adapter<MyR
             reviewCount = view.findViewById(R.id.reviewCount);
             reviewAverage = view.findViewById(R.id.ratingBar);
             image = view.findViewById(R.id.image);
+            cuisine = view.findViewById(R.id.type);
         }
 
         @Override

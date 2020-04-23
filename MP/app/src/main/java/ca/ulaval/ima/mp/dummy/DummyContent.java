@@ -46,11 +46,12 @@ public class DummyContent {
         static public String DISTANCE = "distance";
         static public String IMAGE = "image";
         static public String REVIEW_AVERAGE = "review_average";
-        static public String OPENING_HOURS = "opening_hours";
+        static public String CUISINE = "cuisine";
 
         public final String id;
         public final String name;
         public final String distance;
+        public final String cuisine;
         public final String reviewCount;
         public final String image;
         public final float reviewAverage;
@@ -62,6 +63,7 @@ public class DummyContent {
             this.image = restaurant.getString(IMAGE);
             this.reviewCount = restaurant.getString(REVIEW_COUNT);
             this.reviewAverage = (float)restaurant.getDouble(REVIEW_AVERAGE);
+            this.cuisine = restaurant.getJSONArray(CUISINE).getJSONObject(0).getString("name");
         }
 
         @Override

@@ -87,6 +87,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         } else {
             this.myLatitude = myLocation.getLatitude();
             this.myLongitude = myLocation.getLongitude();
+            API.getInstance().setLatitude(this.myLatitude);
+            API.getInstance().setLongitude(this.myLongitude);
         }
     }
 

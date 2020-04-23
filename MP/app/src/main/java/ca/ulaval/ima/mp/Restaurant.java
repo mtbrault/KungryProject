@@ -27,6 +27,7 @@ public class Restaurant {
     static public String COMMENT = "comment";
     static public String PHONE_NUMBER = "phone_number";
     static public String WEBSITE = "website";
+    static public String CUISINE = "cuisine";
     static public String REVIEWS = "reviews";
 
     public String id;
@@ -39,6 +40,7 @@ public class Restaurant {
     public ArrayList<Review> reviews;
     public String phoneNumber;
     public String website;
+    public String cuisine = "";
 
     public Restaurant(JSONObject data) throws JSONException {
         this.id = data.getString(ID);
@@ -58,6 +60,10 @@ public class Restaurant {
         for (int i = 0; i < jsonOpeningHours.length(); i++) {
             JSONObject openingHour = jsonOpeningHours.getJSONObject(i);
             this.openingHours.put(openingHour.getString(DAY), new OpeningHour(openingHour));
+        }
+        JSONArray jsonCuisineArray = data.getJSONArray(CUISINE);
+        for (int i = 0; i < jsonCuisineArray.length(); i++) {
+            this.cuisine = jsonCuisineArray.getJSONObject(i).getString("name");
         }
     }
 

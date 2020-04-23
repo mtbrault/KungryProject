@@ -48,5 +48,13 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/reviewImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="5dp"
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
