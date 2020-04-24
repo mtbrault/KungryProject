@@ -21,6 +21,7 @@ public class API extends OkHttpClient {
     private String refresh_token;
     private double longitude = -71.2908;
     private double latitude = 46.8454;
+    private int    distance = 80;
     private String CLIENT_ID = "STO4WED2NTDDxjLs8ODios5M15HwsrRlydsMa1t0";
     private String CLIENT_SECRET = "YOVWGpjSnHd5AYDxGBR2CIB09ZYM1OPJGnH3ijkKwrUMVvwLprUmLf6fxku06ClUKTAEl5AeZN36V9QYBYvTtrLMrtUtXVuXOGWleQGYyApC2a469l36TdlXFqAG1tpK";
     public static boolean isConnected() {
@@ -59,12 +60,13 @@ public class API extends OkHttpClient {
         newCall(request).enqueue(callback);
     }
 
-    public void getRestaurantFromPosition(double latitude, double longitude, int distance, Callback callback) {
+    public void getRestaurantFromPosition(Callback callback) {
         HttpUrl.Builder builder = HttpUrl.parse(URL + "/restaurant/search").newBuilder();
 
-        builder.addQueryParameter("latitude", String.valueOf(latitude));
-        builder.addQueryParameter("longitude", String.valueOf(longitude));
-        builder.addQueryParameter("radius", String.valueOf(distance));
+        builder.addQueryParameter("latitude", String.valueOf(this.latitude));
+        builder.addQueryParameter("longitude", String.valueOf(this.longitude));
+        builder.addQueryParameter("radius", String.valueOf(this.distance));
+        builder.addQueryParameter("page_size", "30");
 
         final Request request = new Request.Builder()
                 .url(builder.build().toString())

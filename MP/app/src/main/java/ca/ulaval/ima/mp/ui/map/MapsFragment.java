@@ -14,6 +14,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -27,13 +31,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,6 +58,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private double      myLongitude;
     private float       zoomFactor = 10.0f;
     private View        root;
+    private Marker      markerSelected = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +88,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     myLocation = locate;
             }
         }
-        if (myLocation == null) {
+        if (myLocation == null || myLocation != null) {
             this.displayMessage("Impossible to get your location, so we will locate you in Quebec");
             this.myLatitude = 46.8454;
             this.myLongitude = -71.2908;
@@ -90,12 +98,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             API.getInstance().setLatitude(this.myLatitude);
             API.getInstance().setLongitude(this.myLongitude);
         }
-        mMap.addMarker(new MarkerOptions().position(new LatLng(this.myLatitude, this.myLongitude)).title("Ma position"));
     }
 
     private void addRestaurantToMap(final Response response) throws JSONException {
         try {
-            JSONObject res = new JSONObject(response.body().string());
+            final JSONObject res = new JSONObject(response.body().string());
             final JSONObject content = new JSONObject(res.getString("content"));
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -106,8 +113,34 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             JSONObject element = new JSONObject(restaurantList.getString(i));
                             JSONObject locate = new JSONObject(element.getString("location"));
                             LatLng position = new LatLng(Double.parseDouble(locate.getString("latitude")), Double.parseDouble(locate.getString("longitude")));
-                            mMap.addMarker(new MarkerOptions().position(position).icon(getBitmapFromDrawable(getActivity(), R.drawable.icone_pin)));
+                            Marker mark = mMap.addMarker(new MarkerOptions().position(position).icon(getBitmapFromDrawable(getActivity(), R.drawable.icone_pin)));
+                            mark.setTag(element);
                         }
+                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker) {
+                                if (markerSelected == null)
+                                    ((ViewSwitcher)root.findViewById(R.id.switcher)).showNext();
+                                else
+                                    markerSelected.setIcon(getBitmapFromDrawable(getActivity(), R.drawable.icone_pin));
+                                marker.setIcon(getBitmapFromDrawable(getActivity(), R.drawable.ic_black_pin));
+                                markerSelected = marker;
+                                try {
+                                    JSONObject element = (JSONObject) marker.getTag();
+                                    ((TextView)root.findViewById(R.id.map_name)).setText(element.getString("name"));
+                                    ((TextView)root.findViewById(R.id.map_distance)).setText(element.getString("distance") + " km");
+                                    ((TextView)root.findViewById(R.id.map_reviewCount)).setText("(" + element.getString("review_count") + ")");
+                                    ((RatingBar)root.findViewById(R.id.map_ratingBar)).setRating((float)element.getDouble("review_average"));
+                                    JSONArray jsonCuisineArray = element.getJSONArray("cuisine");
+                                    ((TextView)root.findViewById(R.id.map_type)).setText(jsonCuisineArray.getJSONObject(0).getString("name"));
+                                    Picasso.get().load(element.getString("image")).into((ImageView)root.findViewById(R.id.map_image));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    displayMessage("Impossible to parse data from restaurant");
+                                }
+                                return false;
+                            }
+                        });
                     } catch (JSONException e) {
                         e.printStackTrace();
                         displayMessage("Impossible to parse JSON");
@@ -125,7 +158,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap = map;
 
         this.findLocation();
-        API.getInstance().getRestaurantFromPosition(this.myLatitude, this.myLongitude, 40, new Callback() {
+        API.getInstance().getRestaurantFromPosition(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 displayMessage("Impossible to get close restaurants");
