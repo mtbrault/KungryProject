@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +31,9 @@ import okhttp3.Response;
 public class LoginFragment extends Fragment {
 
     FragmentChangeListener fc;
+    private View root;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        root = inflater.inflate(R.layout.fragment_login, container, false);
         //((MainActivity)getActivity()).getSupportActionBar().getCustomView().setVisibility(View.GONE);
         final EditText email = root.findViewById(R.id.email);
         final EditText password = root.findViewById(R.id.password);
@@ -72,6 +76,8 @@ public class LoginFragment extends Fragment {
                                 AccountFragment accountFragment = new AccountFragment();
                                 FragmentChangeListener fc =(FragmentChangeListener)getActivity();
                                 fc.replaceFragment(accountFragment);
+                            } else {
+                                displayMessage("Failed to login.");
                             }
                         }
                     });
@@ -84,4 +90,7 @@ public class LoginFragment extends Fragment {
         return root;
     }
 
+    private void displayMessage(String message) {
+        Snackbar.make(root, message, BaseTransientBottomBar.LENGTH_SHORT).show();
+    }
 }

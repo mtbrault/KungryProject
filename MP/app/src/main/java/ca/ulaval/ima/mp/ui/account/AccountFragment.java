@@ -67,7 +67,6 @@ public class AccountFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             });

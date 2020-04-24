@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,14 +31,13 @@ public class RegisterFragment extends Fragment {
 
 
     FragmentChangeListener fc;
+    private View root;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_register, container, false);
-
+        root = inflater.inflate(R.layout.fragment_register, container, false);
         final EditText name = root.findViewById(R.id.name);
         final EditText lastName = root.findViewById(R.id.lastname);
         final EditText email = root.findViewById(R.id.email);
         final EditText password = root.findViewById(R.id.password);
-
         final TextView connect = root.findViewById(R.id.connect);
         final Button loginBtn = root.findViewById(R.id.loginBtn);
 
@@ -77,6 +79,8 @@ public class RegisterFragment extends Fragment {
                                 AccountFragment accountFragment = new AccountFragment();
                                 FragmentChangeListener fc =(FragmentChangeListener)getActivity();
                                 fc.replaceFragment(accountFragment);
+                            } else {
+                                displayMessage("Failed to register.");
                             }
                         }
                     });
@@ -89,4 +93,7 @@ public class RegisterFragment extends Fragment {
         return root;
     }
 
+    private void displayMessage(String message) {
+        Snackbar.make(root, message, BaseTransientBottomBar.LENGTH_SHORT).show();
+    }
 }
