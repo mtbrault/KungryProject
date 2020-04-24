@@ -47,14 +47,14 @@ public class API extends OkHttpClient {
 
     public void getRestaurants(Callback callback) {
         final Request request = new Request.Builder()
-                .url(URL + "/restaurant?latitude=" + this.latitude + "&longitude=" + this.longitude)
+                .url(URL + "/restaurant/search?latitude=" + this.latitude + "&longitude=" + this.longitude + "&radius=" + this.distance)
                 .build();
         newCall(request).enqueue(callback);
     }
 
     public void getRestaurants(int page, Callback callback) {
         final Request request = new Request.Builder()
-                .url(URL + "/restaurant?page=" + page + "&latitude=" + this.latitude + "&longitude=" + this.longitude)
+                .url(URL + "/restaurant/search?page=" + page + "&latitude=" + this.latitude + "&longitude=" + this.longitude + "&radius=" + this.distance)
                 .build();
 
         newCall(request).enqueue(callback);

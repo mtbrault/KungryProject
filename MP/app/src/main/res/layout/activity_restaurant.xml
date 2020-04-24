@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="0"
-                    android:drawableLeft="@drawable/icone_pin"
+                    android:drawableLeft="@drawable/icone_pin_small"
                     android:text="5.5 km" />
 
                 <RatingBar
