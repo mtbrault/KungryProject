@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +37,7 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
 
     private Restaurant restaurant;
     private RestaurantActivity that = this;
+    private GoogleMap readyMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +152,8 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
                                     }
                                 });
                                 buttonBack.bringToFront();
+                                readyMap.addMarker(new MarkerOptions().position(restaurant.position));
+                                readyMap.moveCamera(CameraUpdateFactory.newLatLng(restaurant.position));
                             }
                         });
                     } catch (JSONException e) {
@@ -162,6 +166,6 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //googleMap.addMarker(new MarkerOptions().position(restaurant.position));
+        readyMap = googleMap;
     }
 }
