@@ -7,6 +7,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +60,23 @@ public class RestaurantActivity extends AppCompatActivity {
                         final TextView distance = findViewById(R.id.distance);
                         final TextView reviewCount = findViewById(R.id.reviewCount);
                         final Button phoneNumber = findViewById(R.id.buttonPhone);
+                        phoneNumber.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                intent.setData(Uri.parse("tel:" + restaurant.phoneNumber));
+                                startActivity(intent);
+                            }
+                        });
                         final Button websiteButton = findViewById(R.id.buttonWebsite);
+                        websiteButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(restaurant.website));
+                                startActivity(intent);
+                            }
+                        });
                         final TextView lundiTextView = findViewById(R.id.lundiHorraire);
                         final TextView mardiTextView = findViewById(R.id.mardiHorraire);
                         final TextView mercrediTextView = findViewById(R.id.mercrediHorraire);
