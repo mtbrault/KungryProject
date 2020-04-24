@@ -16,6 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -24,7 +31,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class RestaurantActivity extends AppCompatActivity {
+public class RestaurantActivity extends AppCompatActivity implements OnMapReadyCallback {
+
 
     private Restaurant restaurant;
     private RestaurantActivity that = this;
@@ -33,6 +41,8 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         String id = getIntent().getStringExtra("id");
         setContentView(R.layout.activity_restaurant);
+        MapView map = findViewById(R.id.mapView);
+        map.getMapAsync(that);
         getSupportActionBar().hide();
         if (API.isConnected()) {
             Button evaluationButton = findViewById(R.id.buttonEvaluation);
@@ -55,10 +65,10 @@ public class RestaurantActivity extends AppCompatActivity {
                     try {
                         JSONObject data = new JSONObject(response.body().string()).getJSONObject("content");
                         restaurant = new Restaurant(data);
-
                         final TextView name = findViewById(R.id.restaurantName);
                         final TextView distance = findViewById(R.id.distance);
                         final TextView reviewCount = findViewById(R.id.reviewCount);
+                        final TextView reviewCount2 = findViewById(R.id.reviewCount2);
                         final Button phoneNumber = findViewById(R.id.buttonPhone);
                         phoneNumber.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -109,6 +119,7 @@ public class RestaurantActivity extends AppCompatActivity {
                                 name.setText(restaurant.name);
                                 distance.setText(restaurant.distance + "km");
                                 reviewCount.setText("(" + restaurant.reviewCount + ")");
+                                reviewCount2.setText("(" + restaurant.reviewCount + ")");
                                 phoneNumber.setText(restaurant.phoneNumber);
                                 websiteButton.setText(restaurant.website);
                                 ratingBar.setRating(restaurant.reviewAverage);
@@ -149,4 +160,8 @@ public class RestaurantActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.addMarker(new MarkerOptions().position(restaurant.position));
+    }
 }

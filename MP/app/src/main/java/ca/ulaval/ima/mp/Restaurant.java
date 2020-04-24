@@ -1,5 +1,7 @@
 package ca.ulaval.ima.mp;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +31,7 @@ public class Restaurant {
     static public String WEBSITE = "website";
     static public String CUISINE = "cuisine";
     static public String REVIEWS = "reviews";
+    static public String LOCATION = "location";
 
     public String id;
     public String name;
@@ -40,6 +43,7 @@ public class Restaurant {
     public ArrayList<Review> reviews;
     public String phoneNumber;
     public String website;
+    public LatLng position;
     public String cuisine = "";
 
     public Restaurant(JSONObject data) throws JSONException {
@@ -65,6 +69,7 @@ public class Restaurant {
         for (int i = 0; i < jsonCuisineArray.length(); i++) {
             this.cuisine = jsonCuisineArray.getJSONObject(i).getString("name");
         }
+        this.position = new LatLng(data.getJSONObject(LOCATION).getDouble("latitude"), data.getJSONObject(LOCATION).getDouble("longitude"));
     }
 
     static public String MONDAY = "MON";
