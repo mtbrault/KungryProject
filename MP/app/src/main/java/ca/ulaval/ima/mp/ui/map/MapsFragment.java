@@ -88,7 +88,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     myLocation = locate;
             }
         }
-        if (myLocation == null || myLocation != null) {
+        if (myLocation == null) {
             this.displayMessage("Impossible to get your location, so we will locate you in Quebec");
             this.myLatitude = 46.8454;
             this.myLongitude = -71.2908;
