@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
+    android:background="#FAFAFA"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.list.ResaurantListFragment"
     tools:listitem="@layout/fragment_resaurant_list" />

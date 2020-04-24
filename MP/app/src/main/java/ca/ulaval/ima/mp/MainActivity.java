@@ -8,13 +8,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import ca.ulaval.ima.mp.dummy.DummyContent;
+import ca.ulaval.ima.mp.ui.account.FragmentChangeListener;
 import ca.ulaval.ima.mp.ui.list.ResaurantListFragment;
 
-public class MainActivity extends AppCompatActivity implements ResaurantListFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ResaurantListFragment.OnListFragmentInteractionListener, FragmentChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,4 +42,22 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
         intent.putExtra("id", item.id);
         startActivity(intent);
     }
+
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void removeFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(fragment);
+    }
+
 }
