@@ -70,7 +70,6 @@
         android:layout_marginRight="24dp"
         android:contentDescription="Logo"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
@@ -175,14 +174,14 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
         android:text="Inscription"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
