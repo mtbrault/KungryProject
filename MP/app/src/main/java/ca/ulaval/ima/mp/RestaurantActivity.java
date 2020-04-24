@@ -41,7 +41,7 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         String id = getIntent().getStringExtra("id");
         setContentView(R.layout.activity_restaurant);
-        MapView map = findViewById(R.id.mapView);
+        SupportMapFragment map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         map.getMapAsync(that);
         getSupportActionBar().hide();
         if (API.isConnected()) {
@@ -162,6 +162,6 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(restaurant.position));
+        //googleMap.addMarker(new MarkerOptions().position(restaurant.position));
     }
 }
