@@ -154,7 +154,8 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
                                 buttonBack.bringToFront();
                                 if (readyMap != null) {
                                     readyMap.addMarker(new MarkerOptions().position(restaurant.position));
-                                    readyMap.moveCamera(CameraUpdateFactory.newLatLng(restaurant.position));
+                                    readyMap.moveCamera(CameraUpdateFactory.newLatLngZoom(restaurant.position, 15.0f));
+
                                 }
                             }
                         });
