@@ -17,7 +17,6 @@ import androidx.navigation.ui.NavigationUI;
 import ca.ulaval.ima.mp.dummy.DummyContent;
 import ca.ulaval.ima.mp.ui.account.FragmentChangeListener;
 import ca.ulaval.ima.mp.ui.list.ResaurantListFragment;
-import okhttp3.Callback;
 
 public class MainActivity extends AppCompatActivity implements ResaurantListFragment.OnListFragmentInteractionListener, FragmentChangeListener {
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
 
     @Override
     public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();;
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, fragment, fragment.toString());
         fragmentTransaction.addToBackStack(fragment.toString());
@@ -55,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
     }
 
     @Override
-    public void destroyFragment(Callback fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();;
+    public void removeFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove((Fragment) fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.remove(fragment);
     }
+
 }

@@ -27,7 +27,7 @@ import okhttp3.Response;
 public class RegisterFragment extends Fragment {
 
 
-    private JSONObject data;
+    FragmentChangeListener fc;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_register, container, false);
 
@@ -45,7 +45,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("onClick", "LoginFragment");
                 LoginFragment loginFragment = new LoginFragment();
-                FragmentChangeListener fc =(FragmentChangeListener)getActivity();
+                fc = (FragmentChangeListener)getActivity();
                 fc.replaceFragment(loginFragment);
             }
         });
@@ -72,13 +72,11 @@ public class RegisterFragment extends Fragment {
                         }
 
                         @Override
-                        public void onResponse(Call call, Response response) throws IOException {
+                        public void onResponse(Call call, Response response) {
                             if (response.isSuccessful()) {
-                                try {
-                                    JSONObject data =  new JSONObject(response.body().string());
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                AccountFragment accountFragment = new AccountFragment();
+                                FragmentChangeListener fc =(FragmentChangeListener)getActivity();
+                                fc.replaceFragment(accountFragment);
                             }
                         }
                     });
@@ -90,4 +88,5 @@ public class RegisterFragment extends Fragment {
 
         return root;
     }
+
 }

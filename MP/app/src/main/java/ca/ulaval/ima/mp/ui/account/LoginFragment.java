@@ -28,7 +28,6 @@ import okhttp3.Response;
 public class LoginFragment extends Fragment {
 
     FragmentChangeListener fc;
-    private JSONObject data;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         //((MainActivity)getActivity()).getSupportActionBar().getCustomView().setVisibility(View.GONE);
@@ -68,15 +67,11 @@ public class LoginFragment extends Fragment {
                         }
 
                         @Override
-                        public void onResponse(Call call, Response response) throws IOException {
+                        public void onResponse(Call call, Response response) {
                             if (response.isSuccessful()) {
-                                try {
-                                    JSONObject data = new JSONObject(response.body().string()).getJSONObject("content");
-                                    Log.d("data", String.valueOf(data));
-                                    fc.destroyFragment(this);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                AccountFragment accountFragment = new AccountFragment();
+                                FragmentChangeListener fc =(FragmentChangeListener)getActivity();
+                                fc.replaceFragment(accountFragment);
                             }
                         }
                     });

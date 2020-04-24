@@ -6,5 +6,6 @@ import okhttp3.Callback;
 
 public interface FragmentChangeListener {
     void replaceFragment(Fragment fragment);
-    void destroyFragment(Callback fragment);
+    void removeFragment(Fragment fragment);
+
 }

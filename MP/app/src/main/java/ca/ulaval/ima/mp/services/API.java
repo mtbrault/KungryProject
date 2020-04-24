@@ -54,6 +54,15 @@ public class API extends OkHttpClient {
         newCall(request).enqueue(callback);
     }
 
+    public void getMe(Callback callback) {
+        MediaType JSON = MediaType.parse("application/json");
+        final Request request = new Request.Builder()
+                .url(URL + "/account/me")
+                .addHeader("Authorization", access_token)
+                .build();
+        newCall(request).enqueue(callback);
+    }
+
     public void getRestaurants(int page, Callback callback) {
         final Request request = new Request.Builder()
                 .url(URL + "/restaurant?page=" + page + "&latitude=" + this.latitude + "&longitude=" + this.longitude)
@@ -115,13 +124,13 @@ public class API extends OkHttpClient {
                     final JSONObject responseBody;
                     try {
                         responseBody = new JSONObject(response.body().string());
-                        access_token = "Basic " + responseBody.getJSONObject("content").getString("access_token");
+                        access_token = "Bearer " + responseBody.getJSONObject("content").getString("access_token");
                         refresh_token = responseBody.getJSONObject("content").getString("refresh_token");
                     } catch (JSONException err) {
                     }
                 }
                 Log.d("ERROR-API", String.valueOf(response));
-                callback.onResponse(call, response, responseBody);
+                callback.onResponse(call, response);
             }
         });
     }
@@ -149,7 +158,7 @@ public class API extends OkHttpClient {
                     connected = true;
                     try {
                         JSONObject responseBody = new JSONObject(response.body().string());
-                        access_token = "Basic " + responseBody.getJSONObject("content").getString("access_token");
+                        access_token = "Bearer " + responseBody.getJSONObject("content").getString("access_token");
                         refresh_token = responseBody.getJSONObject("content").getString("refresh_token");
                     } catch (JSONException err) {
                         Log.d("ERROR-API", String.valueOf(err));
@@ -160,5 +169,8 @@ public class API extends OkHttpClient {
         });
     }
 
+    public void logout() {
+        connected = false;
+    }
 
 }
