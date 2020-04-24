@@ -2,6 +2,7 @@ package ca.ulaval.ima.mp.ui.map;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -46,6 +48,7 @@ import java.io.IOException;
 import java.util.List;
 
 import ca.ulaval.ima.mp.R;
+import ca.ulaval.ima.mp.RestaurantActivity;
 import ca.ulaval.ima.mp.services.API;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,12 +62,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private float       zoomFactor = 10.0f;
     private View        root;
     private Marker      markerSelected = null;
+    private String      idSelected = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.root = inflater.inflate(R.layout.fragment_map, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        this.root.findViewById(R.id.map_info_restaurant).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (idSelected == null)
+                    return ;
+                Intent intent = new Intent(getActivity(), RestaurantActivity.class);
+                intent.putExtra("id", idSelected);
+                startActivity(intent);
+            }
+        });
         return this.root;
     }
 
@@ -127,6 +141,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                 markerSelected = marker;
                                 try {
                                     JSONObject element = (JSONObject) marker.getTag();
+                                    idSelected = element.getString("id");
                                     ((TextView)root.findViewById(R.id.map_name)).setText(element.getString("name"));
                                     ((TextView)root.findViewById(R.id.map_distance)).setText(element.getString("distance") + " km");
                                     ((TextView)root.findViewById(R.id.map_reviewCount)).setText("(" + element.getString("review_count") + ")");
