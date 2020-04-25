@@ -73,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
 
     @Override
     public void redirectToAccountFragment() {
-        getSupportActionBar().show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getSupportActionBar().show();
+            }
+        });
         AccountFragment fragment = new AccountFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -90,17 +95,15 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
 
     @Override
     public void redirectToLoginFragment() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getSupportActionBar().hide();
+            }
+        });
         LoginFragment fragment = new LoginFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentLogin, fragment).commit();
-    }
-
-    public void  goToLoginScreen() {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        Menu menu = navigationView.getMenu();
-        MenuItem nav_login = menu.findItem(R.id.navigation_profile);
-        nav_login.setTitle("Login");
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
     }
 }
