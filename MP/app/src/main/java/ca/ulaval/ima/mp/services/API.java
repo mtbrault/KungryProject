@@ -173,13 +173,13 @@ public class API extends OkHttpClient {
         connected = false;
     }
 
-    public void uploadReview(String review, Callback callback) {
+    public void uploadReview(JSONObject review, Callback callback) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, review);
+        RequestBody requestBody = RequestBody.create(JSON, review.toString());
         final Request request = new Request.Builder()
-                .url(URL + "/review/")
-                .post(body)
-                .addHeader("Authorization", "Bearer " + this.access_token)
+                .url(URL + "/review")
+                .post(requestBody)
+                .addHeader("Authorization", this.access_token)
                 .build();
 
         newCall(request).enqueue(callback);

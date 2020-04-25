@@ -136,7 +136,6 @@ public class ResaurantListFragment extends Fragment {
                                         } else {
                                             page = -1;
                                         }
-                                        System.out.println("down page: "+ page);
                                         getActivity().runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {

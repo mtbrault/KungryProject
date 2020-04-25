@@ -173,7 +173,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap = map;
 
         this.findLocation();
-        for (int page = 0; page < 3; page ++) {
+        for (int page = 1; page < 4; page ++) {
             API.getInstance().getRestaurantFromPosition(page, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

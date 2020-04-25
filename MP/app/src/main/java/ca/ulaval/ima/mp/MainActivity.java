@@ -42,12 +42,9 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 CharSequence label = destination.getLabel();
-                System.out.println(label);
                 if (label.toString().equals("Profile")) {
-                    System.out.println("hiiiiiiiide");
                     getSupportActionBar().hide();
                 } else {
-                    System.out.println("shoooooooow");
                     getSupportActionBar().show();
                 }
             }

@@ -46,20 +46,20 @@ public class EvaluationActivity extends AppCompatActivity {
         String comment = ((EditText)findViewById(R.id.review_comment)).getText().toString();
         JSONObject review = new JSONObject();
 
-        if (rate == 0) {
+        if (rate == 0 ) {
             displayMessage("You need to select a rate !");
             return ;
         }
         try {
             review.put("restaurant_id", this.id);
-            review.put("stars", rate);
+            review.put("stars", (int)rate);
             if (comment.length() > 0)
                 review.put("comment", comment);
         } catch (JSONException e) {
             e.printStackTrace();
             displayMessage("Problem while reading data");
         }
-        API.getInstance().uploadReview(review.toString(), new Callback() {
+        API.getInstance().uploadReview(review, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -68,7 +68,11 @@ public class EvaluationActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                displayMessage("Review well uploaded !");
+                if (response.isSuccessful())
+                    displayMessage("Review well uploaded !");
+                else {
+                    displayMessage("Impossible to upload review");
+                }
             }
         });
     }
