@@ -173,25 +173,27 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap = map;
 
         this.findLocation();
-        API.getInstance().getRestaurantFromPosition(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                displayMessage("Impossible to get close restaurants");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                if (response.isSuccessful()) {
-                    try {
-                        addRestaurantToMap(response);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    displayMessage("Can't get restaurants from API");
+        for (int page = 0; page < 3; page ++) {
+            API.getInstance().getRestaurantFromPosition(page, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    displayMessage("Impossible to get close restaurants");
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            addRestaurantToMap(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        displayMessage("Can't get restaurants from API");
+                    }
+                }
+            });
+        }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.myLatitude, this.myLongitude), this.zoomFactor));
     }
 

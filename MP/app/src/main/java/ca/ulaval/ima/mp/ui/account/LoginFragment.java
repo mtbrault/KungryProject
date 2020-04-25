@@ -39,8 +39,11 @@ public class LoginFragment extends Fragment {
         final Button loginBtn = root.findViewById(R.id.loginBtn);
         loggedListenner = (MainActivity) getActivity();
 
-
-        register.setOnClickListener(new View.OnClickListener(){
+        if (API.isConnected()) {
+            loggedListenner.redirectToAccountFragment();
+        }
+        
+            register.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {

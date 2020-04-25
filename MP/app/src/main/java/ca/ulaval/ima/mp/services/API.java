@@ -71,13 +71,13 @@ public class API extends OkHttpClient {
         newCall(request).enqueue(callback);
     }
 
-    public void getRestaurantFromPosition(Callback callback) {
+    public void getRestaurantFromPosition(int page, Callback callback) {
         HttpUrl.Builder builder = HttpUrl.parse(URL + "/restaurant/search").newBuilder();
 
         builder.addQueryParameter("latitude", String.valueOf(this.latitude));
         builder.addQueryParameter("longitude", String.valueOf(this.longitude));
         builder.addQueryParameter("radius", String.valueOf(this.distance));
-        builder.addQueryParameter("page_size", "30");
+        builder.addQueryParameter("page", String.valueOf(page));
 
         final Request request = new Request.Builder()
                 .url(builder.build().toString())

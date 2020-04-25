@@ -15,7 +15,7 @@
 
     <include
         android:id="@+id/itemRestaurant"
-        layout="@layout/fragment_resaurant_list_item"
+        layout="@layout/fragment_resaurant_list_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
          />
