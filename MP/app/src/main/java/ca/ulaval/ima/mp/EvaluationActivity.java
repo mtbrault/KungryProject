@@ -52,7 +52,7 @@ public class EvaluationActivity extends AppCompatActivity {
         }
         try {
             review.put("restaurant_id", this.id);
-            review.put("stars", (int)rate);
+            review.put("stars", rate);
             if (comment.length() > 0)
                 review.put("comment", comment);
         } catch (JSONException e) {
