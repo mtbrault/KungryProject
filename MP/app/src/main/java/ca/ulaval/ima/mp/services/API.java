@@ -173,4 +173,15 @@ public class API extends OkHttpClient {
         connected = false;
     }
 
+    public void uploadReview(String review, Callback callback) {
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, review);
+        final Request request = new Request.Builder()
+                .url(URL + "/review/")
+                .post(body)
+                .addHeader("Authorization", "Bearer " + this.access_token)
+                .build();
+
+        newCall(request).enqueue(callback);
+    }
 }

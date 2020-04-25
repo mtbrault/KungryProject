@@ -44,7 +44,7 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String id = getIntent().getStringExtra("id");
+        final String id = getIntent().getStringExtra("id");
         setContentView(R.layout.activity_restaurant);
         SupportMapFragment map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         map.getMapAsync(that);
@@ -57,6 +57,7 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(that, EvaluationActivity.class);
+                    intent.putExtra("id", id);
                     startActivity(intent);
                 }
             });

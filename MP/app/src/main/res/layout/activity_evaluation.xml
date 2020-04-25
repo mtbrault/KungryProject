@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
-        android:id="@+id/ratingBar3"
+        android:id="@+id/review_note"
         style="@android:style/Widget.DeviceDefault.Light.RatingBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar3" />
+        app:layout_constraintTop_toBottomOf="@+id/review_note" />
 
     <TextView
         android:id="@+id/textView13"
@@ -69,7 +69,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/review_comment" />
 
     <TextView
         android:id="@+id/textView14"
@@ -94,7 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/review_comment"
         style="@style/Base.Widget.MaterialComponents.TextInputEditText"
         android:layout_width="0dp"
         android:layout_height="120dp"
@@ -107,7 +107,6 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="Matthieu et Val les baizeur"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
