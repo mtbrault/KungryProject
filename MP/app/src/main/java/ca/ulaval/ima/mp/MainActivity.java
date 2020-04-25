@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import ca.ulaval.ima.mp.dummy.DummyContent;
+import ca.ulaval.ima.mp.services.API;
 import ca.ulaval.ima.mp.ui.account.AccountFragment;
 import ca.ulaval.ima.mp.ui.account.FragmentChangeListener;
 import ca.ulaval.ima.mp.ui.account.LoginFragment;
@@ -33,7 +34,12 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+
+        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().getCustomView();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -43,7 +49,13 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 CharSequence label = destination.getLabel();
                 if (label.toString().equals("Profile")) {
-                    getSupportActionBar().hide();
+
+                    System.out.println("hiiiiiiiide");
+                    if (API.isConnected()) {
+                        getSupportActionBar().show();
+                    } else {
+                        getSupportActionBar().hide();
+                    }
                 } else {
                     getSupportActionBar().show();
                 }
@@ -61,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
 
     @Override
     public void redirectToAccountFragment() {
+        getSupportActionBar().show();
         AccountFragment fragment = new AccountFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
