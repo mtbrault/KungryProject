@@ -2,20 +2,25 @@ package ca.ulaval.ima.mp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
 import ca.ulaval.ima.mp.dummy.DummyContent;
+import ca.ulaval.ima.mp.ui.account.AccountFragment;
 import ca.ulaval.ima.mp.ui.account.FragmentChangeListener;
+import ca.ulaval.ima.mp.ui.account.LoginFragment;
+import ca.ulaval.ima.mp.ui.account.RegisterFragment;
 import ca.ulaval.ima.mp.ui.list.ResaurantListFragment;
 
 public class MainActivity extends AppCompatActivity implements ResaurantListFragment.OnListFragmentInteractionListener, FragmentChangeListener {
@@ -24,12 +29,7 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
-        getSupportActionBar().setElevation(0);
-        View view = getSupportActionBar().getCustomView();
+        getSupportActionBar().hide();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -45,19 +45,34 @@ public class MainActivity extends AppCompatActivity implements ResaurantListFrag
 
 
     @Override
-    public void replaceFragment(Fragment fragment) {
+    public void redirectToAccountFragment() {
+        AccountFragment fragment = new AccountFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, fragment, fragment.toString());
-        fragmentTransaction.addToBackStack(fragment.toString());
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.fragmentLogin, fragment).commit();
     }
 
     @Override
-    public void removeFragment(Fragment fragment) {
+    public void redirectToRegisterFragment() {
+        RegisterFragment fragment = new RegisterFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(fragment);
+        fragmentTransaction.replace(R.id.fragmentLogin, fragment).commit();
     }
 
+    @Override
+    public void redirectToLoginFragment() {
+        LoginFragment fragment = new LoginFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentLogin, fragment).commit();
+    }
+
+    public void  goToLoginScreen() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        MenuItem nav_login = menu.findItem(R.id.navigation_profile);
+        nav_login.setTitle("Login");
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+    }
 }

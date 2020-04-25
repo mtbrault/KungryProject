@@ -9,6 +9,8 @@ import okhttp3.Response;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -49,12 +52,28 @@ public class RestaurantActivity extends AppCompatActivity implements OnMapReadyC
         if (API.isConnected()) {
             Button evaluationButton = findViewById(R.id.buttonEvaluation);
             evaluationButton.setVisibility(View.VISIBLE);
+            evaluationButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(that, EvaluationActivity.class);
+                    startActivity(intent);
+                }
+            });
         } else {
             TextView textConnexion = findViewById(R.id.connexionText);
             textConnexion.setVisibility(View.VISIBLE);
-            Button buttonConnexion = findViewById(R.id.buttonConnexion);
+            Button  buttonConnexion = findViewById(R.id.buttonConnexion);
             buttonConnexion.setVisibility(View.VISIBLE);
+            buttonConnexion.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
+
         API.getInstance().getRestaurant(id, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -28,6 +28,7 @@
 
         <Button
             android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="30dp"

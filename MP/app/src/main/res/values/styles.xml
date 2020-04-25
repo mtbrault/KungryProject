@@ -5,12 +5,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/backgroundMenu</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
-    </style>
-
-    <style name="AppTheme.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
-        <item name="android:height">@dimen/bar_height</item>
-        <item name="height">@dimen/bar_height</item>
     </style>
 
 </resources>

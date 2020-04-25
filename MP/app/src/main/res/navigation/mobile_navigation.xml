@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="ca.ulaval.ima.mp.ui.account.AccountFragment"
+        android:name="ca.ulaval.ima.mp.ui.account.LoginFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_login" />
 </navigation>

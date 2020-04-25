@@ -1,7 +1,6 @@
 package ca.ulaval.ima.mp.ui.account;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import ca.ulaval.ima.mp.MainActivity;
 import ca.ulaval.ima.mp.R;
-import ca.ulaval.ima.mp.Restaurant;
 import ca.ulaval.ima.mp.services.API;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,7 +29,7 @@ import okhttp3.Response;
 public class RegisterFragment extends Fragment {
 
 
-    FragmentChangeListener fc;
+    private FragmentChangeListener loggedListenner;
     private View root;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_register, container, false);
@@ -40,15 +39,12 @@ public class RegisterFragment extends Fragment {
         final EditText password = root.findViewById(R.id.password);
         final TextView connect = root.findViewById(R.id.connect);
         final Button loginBtn = root.findViewById(R.id.loginBtn);
-
+        loggedListenner = (MainActivity) getActivity();
 
         connect.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d("onClick", "LoginFragment");
-                LoginFragment loginFragment = new LoginFragment();
-                fc = (FragmentChangeListener)getActivity();
-                fc.replaceFragment(loginFragment);
+                loggedListenner.redirectToLoginFragment();
             }
         });
 
@@ -66,19 +62,17 @@ public class RegisterFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("UserDebug", String.valueOf(user));
                 try {
                     API.getInstance().createAccount(user, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            displayMessage("Failed to register.");
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) {
                             if (response.isSuccessful()) {
-                                AccountFragment accountFragment = new AccountFragment();
-                                FragmentChangeListener fc =(FragmentChangeListener)getActivity();
-                                fc.replaceFragment(accountFragment);
+                                loggedListenner.redirectToAccountFragment();
                             } else {
                                 displayMessage("Failed to register.");
                             }

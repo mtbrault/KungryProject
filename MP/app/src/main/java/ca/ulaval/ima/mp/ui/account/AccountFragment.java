@@ -1,10 +1,7 @@
 package ca.ulaval.ima.mp.ui.account;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-
-import com.google.android.gms.common.api.Api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
+import ca.ulaval.ima.mp.MainActivity;
 import ca.ulaval.ima.mp.R;
 import ca.ulaval.ima.mp.services.API;
 import okhttp3.Call;
@@ -32,13 +25,15 @@ import okhttp3.Response;
 
 public class AccountFragment extends Fragment {
 
-    FragmentChangeListener fc;
+    private FragmentChangeListener loggedListenner;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
         final TextView textName = root.findViewById(R.id.name);
         final TextView textEmail = root.findViewById(R.id.email);
         final TextView textNumber = root.findViewById(R.id.number);
         final Button logout = root.findViewById(R.id.logout);
+        loggedListenner = (MainActivity) getActivity();
+
 
         if (API.isConnected()) {
             API.getInstance().getMe(new Callback() {
@@ -70,22 +65,13 @@ public class AccountFragment extends Fragment {
                     }
                 }
             });
-        } else {
-            root = inflater.inflate(R.layout.fragment_login, container, false);
-            LoginFragment loginFragment = new LoginFragment();
-            FragmentChangeListener fc =(FragmentChangeListener)getActivity();
-            Log.d("WTF", "EEEE");
-            fc.replaceFragment(loginFragment);
         }
-
         logout.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 API.getInstance().logout();
-                AccountFragment registerFragment = new AccountFragment();
-                fc = (FragmentChangeListener)getActivity();
-                fc.replaceFragment(registerFragment);
+                loggedListenner.redirectToLoginFragment();
             }
         });
         return root;

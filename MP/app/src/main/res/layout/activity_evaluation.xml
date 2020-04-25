@@ -7,6 +7,15 @@
     android:background="#FAFAFA"
     tools:context=".ReviewActivity">
 
+    <include
+        android:id="@+id/header"
+        layout="@layout/custom_action_bar_with_back_button"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RatingBar
         android:id="@+id/ratingBar3"
         style="@android:style/Widget.DeviceDefault.Light.RatingBar"
@@ -32,7 +41,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <TextView
         android:id="@+id/textView7"

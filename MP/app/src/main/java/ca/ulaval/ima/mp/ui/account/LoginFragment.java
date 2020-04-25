@@ -1,7 +1,6 @@
 package ca.ulaval.ima.mp.ui.account;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -30,25 +28,23 @@ import okhttp3.Response;
 
 public class LoginFragment extends Fragment {
 
-    FragmentChangeListener fc;
+    private FragmentChangeListener loggedListenner;
     private View root;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_login, container, false);
-        //((MainActivity)getActivity()).getSupportActionBar().getCustomView().setVisibility(View.GONE);
+
         final EditText email = root.findViewById(R.id.email);
         final EditText password = root.findViewById(R.id.password);
         final TextView register = root.findViewById(R.id.register);
         final Button loginBtn = root.findViewById(R.id.loginBtn);
+        loggedListenner = (MainActivity) getActivity();
 
 
         register.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                Log.d("onClick", "RegisterFragment");
-                RegisterFragment registerFragment = new RegisterFragment();
-                fc = (FragmentChangeListener)getActivity();
-                fc.replaceFragment(registerFragment);
+                loggedListenner.redirectToRegisterFragment();
             }
         });
 
@@ -63,19 +59,17 @@ public class LoginFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("UserDebug", String.valueOf(user));
                 try {
                     API.getInstance().login(user, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            displayMessage("Failed to login.");
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) {
                             if (response.isSuccessful()) {
-                                AccountFragment accountFragment = new AccountFragment();
-                                FragmentChangeListener fc =(FragmentChangeListener)getActivity();
-                                fc.replaceFragment(accountFragment);
+                                loggedListenner.redirectToAccountFragment();
                             } else {
                                 displayMessage("Failed to login.");
                             }

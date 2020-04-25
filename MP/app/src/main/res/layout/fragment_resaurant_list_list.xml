@@ -11,4 +11,4 @@
     android:background="#FAFAFA"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.list.ResaurantListFragment"
-    tools:listitem="@layout/fragment_resaurant_list" />
+    tools:listitem="@layout/fragment_resaurant_list_item" />
