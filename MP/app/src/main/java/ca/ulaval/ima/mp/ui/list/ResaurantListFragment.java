@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import ca.ulaval.ima.mp.MainActivity;
 import ca.ulaval.ima.mp.R;
 import ca.ulaval.ima.mp.dummy.DummyContent;
 import ca.ulaval.ima.mp.dummy.DummyContent.DummyItem;
@@ -42,7 +44,6 @@ public class ResaurantListFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private int page = 1;
     private boolean loading = false;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -54,6 +55,7 @@ public class ResaurantListFragment extends Fragment {
         ResaurantListFragment fragment = new ResaurantListFragment();
         return fragment;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +100,6 @@ public class ResaurantListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_resaurant_list_list, container, false);
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
